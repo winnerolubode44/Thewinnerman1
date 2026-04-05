@@ -772,7 +772,7 @@
       <div class="success-icon">✦</div>
       <h3 class="success-title">Got it. <em>Let's talk.</em></h3>
       <p class="success-sub">Your inquiry has been received. I'll review your brief and reach out within 24 hours. You can also send me a WhatsApp message right now.</p>
-      <a href="https://wa.me/234XXXXXXXXXX" class="success-wa" id="wa-link" target="_blank">Message Me on WhatsApp</a>
+      <a href="https://wa.me/2347034748951" class="success-wa" id="wa-link" target="_blank">Message Me on WhatsApp</a>
     </div>
 
   </div>
@@ -901,7 +901,25 @@
       (ref      ? '*Found via:* ' + ref : '')
     );
 
-    document.getElementById('wa-link').href = 'https://wa.me/234XXXXXXXXXX?text=' + msg;
+    document.getElementById('wa-link').href = 'https://wa.me/2347034748951?text=' + msg;
+
+    // Send to email via Formspree
+    fetch('https://formspree.io/f/xkopkorv', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        name: name,
+        email: email || 'Not provided',
+        phone: phone || 'Not provided',
+        brand: brand + (industry ? ' (' + industry + ')' : ''),
+        services: selServices.join(', '),
+        budget: budget,
+        project: desc,
+        timeline: timeline || 'Not specified',
+        found_via: ref || 'Not specified'
+      })
+    });
+
     document.querySelectorAll('.form-panel').forEach(function(p){ p.classList.remove('active'); });
     document.querySelectorAll('.form-step-item').forEach(function(i){ i.classList.remove('active'); i.classList.add('done'); });
     document.getElementById('form-success').classList.add('active');
